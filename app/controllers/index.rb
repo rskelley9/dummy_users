@@ -1,130 +1,85 @@
 #===================== GET ROUTES ====================================
 
+#routes to home
 get '/' do
-  @task = params[:task]
   erb :index
 end
 
-get '/users/existing_user' do
-  erb :existing_user
-end
 
+#routes to new-user form
 get '/users/new' do
   erb :new
 end
 
-get '/login' do
-  erb :login
+#user's log-in page
+get '/users/:id' do
+  
+  @user = User.find_by_id(params[:id])
+  if @user.id == session[:id]
+    # if @user.authenticate
+      erb :secret
+    # end
+  else
+    redirect "/"
+  end
 end
 
-
+#routes to logout page, ends user session
 get '/logout' do
-  session[:user_id] = nil
-  redirect '/'
+  session[:id] = nil
+  erb :logout
 end
 
 
 #======================= POST ROUTES=================================
 
-#login and authenticate the user
-
-# post '/login' do
-#   @user = User.find_by_email(params[:user][:email])
-#   if @user && @user.authenticate(params[:user][:password])
-#     session[:user_id] = @user.id 
-#     redirect "/users/#{@user.id}"
-#   else
-#     @errors = ["That username/password does not exist"]
-#     erb :index
-#   end
-
 #creates a new user
 
-post '/new' do
-  @user_new = User.new(username: params[:name], password: params[:pass], email: params[:email])
+post '/users/new' do
+  # @user_new = User.new(username: params[:username], first_name: params[:first_name], last_name: params[:last_name], phone: params[:phone], password_digest: params[:password], email: params[:email])
   @user = User.new(params[:user])
   
   if @user.save
-    session[:user_id] = @user.id
-    redirect to "/users/#{@user.id}"
+    session[:id] = @user.id
+    redirect "/users/#{@user.id}"
   else
     @errors = @user.errors.full_messages
+    
     erb :new
   end
+
 end
 
 #login existing user
 
-post '/existing_user' do
-
-  @users = User.all
-  @user_existing = @users.where[username: params[:name], password: params[:pass]]
-
-  if @user_existing
-    erb :secret
+post '/login' do
+  @user = User.find_by_username(params[:user][:username])
+  
+  if @user && @user.authenticate(params[:user][:password])
+    session[:id] = @user.id 
+    redirect "/users/#{@user.id}"
   else
-    @errors = ["That username/password does not exist"]
-    redirect "/"
-  end 
+    # @errors << ["The username and/or password you entered is faulty."]
+    # puts @errors.last
+    @errors = ["The username and/or password you entered is incorrect."]
+    erb :index
+  end
 end
 
-# # Update a user with data from the form
-# post '/users/:id' do
+
+# Delete user from users.
+
+post '/users/:id/delete' do
+  @user = User.find(params[:id])
+  @user.destroy
+  session[:id] = nil
+  redirect '/users'
+end
+
+# Update users
+# post '/users/:id/edit' do
 #   @user = User.find(params[:id])
-#   if @user.update_attributes(params[:user])
-#     redirect to "/users/#{@user.id}"
-#   else
-#     erb :edit
-#   end
+#   @user.update()
+#   erb: edit
 # end
 
-# # Delete a user
-# post '/users/:id/delete' do
-#   @user = User.find(params[:id])
-#   @user.destroy
-#   redirect to '/users'
-# end
-
-# post '/login' do
-#   @user = User.find_by_email(params[:user][:email])
-#   if @user && @user.authenticate(params[:user][:password])
-#     session[:user_id] = @user.id 
-#     redirect "/users/#{@user.id}"
-#   else
-#     @errors = ["That username/password does not exist"]
-#     erb :index
-#   end
-#   # authenticate
-#   # set the session
-#   # redirect to users/:id page
-# end
-
-
-#   if @user_new.save
-#     erb :succes_page
-#   else
-#     @error = @url_new.errors.messages[:original][0]
-#     @url = Url.find(:all, :order => "id desc", :limit => 5)
-#     erb :index
-#   end
-
-# end
-
-# # get '/users' do
-# #   @users = User.order('last_name ASC') # sort them by alphabetical order by last_name
-# #   erb :index
-# # end
-
-
-# # Retrieve the resource with the id from the url
-# get '/users/:id' do
-#   # we should have a current_user now
-#   @user = User.find_by_id(params[:id])
-#   if @user.id == session[:user_id]
-#     # if @user.authenticate
-#       erb :secret
-#     # end
-#   else
-#     redirect "/"
-#   end
-# end

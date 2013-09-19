@@ -4,49 +4,31 @@
     <p>To proceed, please enter a valid username, email and password.</p>
 
 <br>
-<form id="login" method="POST" action="/new">
+<form id="login" method="POST" action="/login">
   <div>
-    <label for="original">Username</label>
-    <input id="original" name="name" type="text" placeholder="Your full name">
+    <label for="username">Username</label>
+    <input id="username" name="user[username]" type="text" placeholder="Your full name">
   </div>
   <br>
   <div>
-    <label for="original">Password</label>
-    <input id="original" name="pass" type="text" placeholder="Your password">
+    <label for="password">Password</label>
+    <input id="password" name="user[password]" type="password" placeholder="Your password">
   </div>
   <br>
   <div>
-    <label for="original">Email Address</label>
-    <input id="original" name="email" type="text" placeholder="Your email address">
+    <label for="email">Email Address</label>
+    <input id="email" name="user[email]" type="text" placeholder="Your email address">
   </div>
   <br>
   <div>
-    <input type= "SUBMIT" value= "SUBMIT">
+    <input type= "submit" value= "SUBMIT">
   </div>
 </form>
 <br>
-<div class="already"><a href="/users/existing_user">Already registered?</a></div>
+<div class="already"><a href="/users/new">Need to register?</a></div>
 
-<!-- <div class='error'>
-  <%=@error%>
-</div>
-
-<% if @url %>
-<table>
-  <thead>
-    <tr>
-      <th>Long</th>
-      <th>Bitly</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @url.each do |url| %>
-    <tr>
-    <td><%= url.original %></td>
-    <td><a href="<%= url.original %>" ><%= url.updated %></a></td>
-    <% end %>
-    </tr> 
-  </tbody>
-</table> 
+<% if @errors %>
+<% @errors.each do |error| %>
+  <li class="errors"><%= error %></li>
 <% end %>
- -->
+<% end %>

@@ -1,1 +1,57 @@
-<h1>heyr gruys</h1>
+<h1>Please fill out the information below and then submit...</h1>
+
+<br>
+<form id="login" method="POST" action="/users/new">
+  <div>
+    <label for="username">Username</label>
+    <input id="username" name="user[username]" type="text" placeholder="Your preferred username" value="<%= @user.try(:username) %>">
+</div>>
+  
+  </div>
+  <br>
+  <div>
+    <label for="password">Password</label>
+    <input id="password" name="user[password]" type="password" placeholder="Your password">
+  </div>
+  <br>
+
+  <div>
+    <label for="password_confirmation">Confirm Password</label>
+    <input id="password_confirmation" name="password_confirmation" type="password">
+  </div>
+
+  <div>
+    <label for="first_name">First Name</label>
+    <input id="first_name" name="user[first_name]" type="text" placeholder="Your first name" value="<%= @user.try(:first_name) %>">
+</div>>
+  
+  </div>
+  <br>
+  <div>
+    <label for="last_name">Last Name</label>
+    <input id="last_name" name="user[last_name]" type="text" placeholder="Your last name" value="<%= @user.try(:last_name) %>">
+</div>>
+
+  </div>
+  <br>
+  <div>
+    <label for="phone">Phone Number</label>
+    <input id="phone" name="user[phone]" type="text" placeholder="Your phone number (unformatted please)" value="<%= @user.try(:phone) %>">
+  </div>
+  <br>
+  <div>
+    <label for="email">Email Address</label>
+    <input id="email" name="user[email]" type="text" placeholder="Your email address" value="<%= @user.try(:email) %>">
+    </div>
+  <br>
+  <div>
+    <input type= "submit" value= "SUBMIT">
+  </div>
+</form>
+<br>
+
+<% if @errors %>
+<% @errors.each do |err| %>
+<li class="errors"><%= "#{err}" %></li>
+<% end %>
+<% end %>

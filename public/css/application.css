@@ -17,4 +17,22 @@ th {
 .beast {
 	color: pink;
 	text-shadow: 2px 2px #ff0000;
+	font-size: 56pt;
 }
+
+.errors {
+	color: red;
+	list-style: none;
+
+	}
+
+	.home {
+		font-style: bold;
+		font-size: 24pt;
+	}
+
+	.welcome {
+		font-style: bold;
+		font-color: pink;
+
+	}

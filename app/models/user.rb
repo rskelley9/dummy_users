@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true
   validates :email, uniqueness: true
+   validates :password_digest, uniqueness: true
 
   has_secure_password
 end
