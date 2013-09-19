@@ -1,23 +1,52 @@
 <div class="container">
-  <h1>Welcome to Sinatra!</h1>
-  <p>Hello, world!</p>
+  <h1>Welcome!</h1>
+  <p>Glad you've decided to join us!</p>
+    <p>To proceed, please enter a valid username, email and password.</p>
 
-  <table>
-    <tr>
-      <th>File Description</th>
-      <th>File Location</th>
-    </tr>
-    <tr>
-      <td>This view file</td>
-      <td><code><%= __FILE__.gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-    <tr>
-      <td>The layout file</td>
-      <td><code><%= File.expand_path('../layout.erb', __FILE__).gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-    <tr>
-      <td>The current controller</td>
-      <td><code><%= File.expand_path('../../controllers/index.rb', __FILE__).gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-  </table>
+<br>
+<form id="login" method="POST" action="/new">
+  <div>
+    <label for="original">Username</label>
+    <input id="original" name="name" type="text" placeholder="Your full name">
+  </div>
+  <br>
+  <div>
+    <label for="original">Password</label>
+    <input id="original" name="pass" type="text" placeholder="Your password">
+  </div>
+  <br>
+  <div>
+    <label for="original">Email Address</label>
+    <input id="original" name="email" type="text" placeholder="Your email address">
+  </div>
+  <br>
+  <div>
+    <input type= "SUBMIT" value= "SUBMIT">
+  </div>
+</form>
+<br>
+<div class="already"><a href="/users/existing_user">Already registered?</a></div>
+
+<!-- <div class='error'>
+  <%=@error%>
 </div>
+
+<% if @url %>
+<table>
+  <thead>
+    <tr>
+      <th>Long</th>
+      <th>Bitly</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @url.each do |url| %>
+    <tr>
+    <td><%= url.original %></td>
+    <td><a href="<%= url.original %>" ><%= url.updated %></a></td>
+    <% end %>
+    </tr> 
+  </tbody>
+</table> 
+<% end %>
+ -->
